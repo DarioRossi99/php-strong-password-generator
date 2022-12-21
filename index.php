@@ -1,16 +1,5 @@
 <?php
-function randomPass(){
-    $small ="abcdefghilmnopqrstuwvxyjz";
-    $big ="ABCDEFGHILMNOPQRSTUWVXYJZ";
-    $number ="0123456789";
-    $symbol ="-_.:,;";
-
-    $passRandom = $small . $big . $number . $symbol;
-
-    $charsIndex = rand(0, strlen($passRandom) - 1);
-
-    return $passRandom[$charsIndex];
-}
+include_once "./data.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +12,20 @@ function randomPass(){
     <title>Dont read</title>
 </head>
 <body class="bg-dark text-white">
-    
-    <div class="container my-4 text-center border border-warning bg-success p-3 rounded" >
-        <h1 class="mb-4"><em><strong>PassworDinator2000</strong></em></h1>
-        <?php 
-            echo "<div class='container'>$passRandom</div>";
-        ?>
-    </div>
+    <form method="GET" action='index.php'>
+        <div class="container my-4 text-center border border-warning bg-success p-3 rounded" >
+            <h1 class="mb-4"><em><strong>PassworDinator2000</strong></em></h1>
+            <input type="number" value="" name="numChars" placeholder="Lunghezza Pass">
+            <?php 
+            /**
+             * questo if prende l'input inserito dall'utente (esempio input utente:10) nominato (numChars) e sfrutta il numero inserito per collegarsi alla funzione (randompass)
+             */
+                if (isset($_GET["numChars"])) {
+                    echo randomPass($_GET["numChars"]);
+                }
+            ?>
+            <button type="submit"> Genera password (press agin for new password) </button>
+        </div>
+    </form>
 </body>
 </html>
